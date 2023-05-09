@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import AddTodo from '../AddTodo/AddTodo';
 import Todo from '../Todo/Todo';
+import styles from './TodoList.module.css';
 
-export default function TodoList() {
+export default function TodoList({ filter }) {
+
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -12,7 +14,7 @@ export default function TodoList() {
     {
       id: 2,
       text: 'props이해하기 ',
-      status: 'active',
+      status: 'completed',
     },
     {
       id: 3,
@@ -20,7 +22,6 @@ export default function TodoList() {
       status: 'completed',
     },
   ]);
-
   // todo 삭제
   const handleDelete = (deleted) => {
     setTodos((todos) => todos.filter((todo) => todo.id !== deleted.id));
@@ -31,10 +32,12 @@ export default function TodoList() {
   };
   //newTodo 추가
   const handleSubmit = (newTodo) => setTodos([...todos, newTodo]);
+
+  const filtered = getFilteredItems(todos, filter);
   return (
-    <>
-      <ul>
-        {todos.map((todo) => {
+    <section className={styles.container}>
+      <ul className={styles.list}>
+        {filtered.map((todo) => {
           return (
             <Todo
               key={todo.id}
@@ -46,6 +49,13 @@ export default function TodoList() {
         })}
       </ul>
       <AddTodo onAdd={handleSubmit} />
-    </>
+    </section>
   );
+}
+
+function getFilteredItems(todos, filter) {
+  if (filter === 'all') {
+    return todos;
+  }
+  return todos.filter((todo) => todo.status === filter);
 }
