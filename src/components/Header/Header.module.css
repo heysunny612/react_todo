@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: var(--color-bg-dark);
+}
+
+.button {
+  padding: 10px;
+  margin-left: 15px;
+  font-size: 22px;
+  background-color: transparent;
+  text-transform: capitalize;
+  color: var(--color-text);
+}
+.active {
+  color: var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.mode {
+  font-size: 30px;
+  background-color: transparent;
+  color: var(--color-text);
+}

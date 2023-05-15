@@ -4,14 +4,14 @@ import { BsTrashFill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { MdOutlineCheck, MdClose } from 'react-icons/md';
 import Button from '../Button/Button';
+
 export default function Todo({ todo, onDelete, onUpdate, onEdit }) {
-  const [checked, setChecked] = useState(false);
-  const [editText, setEditText] = useState(todo.text);
+  const { text, status } = todo;
+  const [editText, setEditText] = useState(text);
   const [isEdit, setIsEdit] = useState(false);
 
-  const handleCheck = () => {
-    setChecked(!checked);
-    const status = checked ? 'active' : 'completed';
+  const handleCheck = (e) => {
+    const status = e.target.checked ? 'completed' : 'active';
     onUpdate({ ...todo, status });
   };
   const handleChange = (e) => setEditText(e.target.value);
@@ -22,16 +22,17 @@ export default function Todo({ todo, onDelete, onUpdate, onEdit }) {
   };
   const handleEditCancle = () => {
     setIsEdit(!isEdit);
-    setEditText(todo.text);
+    setEditText(text);
   };
+
   return (
     <>
       <li className={styles.todo}>
         <input
           type='checkbox'
-          id={todo.text}
+          id={text}
           className={styles.checkbox}
-          checked={checked && checked}
+          checked={status === 'completed'}
           onChange={handleCheck}
         />
         {isEdit ? ( // 수정모드
@@ -52,8 +53,8 @@ export default function Todo({ todo, onDelete, onUpdate, onEdit }) {
           </>
         ) : (
           <>
-            <label htmlFor={todo.text} className={styles.text}>
-              {todo.text}
+            <label htmlFor={text} className={styles.text}>
+              {text}
             </label>
             <Button onClick={handleEdit}>
               <FiEdit />

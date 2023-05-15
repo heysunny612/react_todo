@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Todos.module.css';
 import Todo from '../Todo/Todo';
 import AddTodo from '../AddTodo/AddTodo';
 
-export default function Todos() {
-  const todoList = [
-    { id: 1, text: '투두입니다1.', status: 'active' },
-    { id: 2, text: '투두입니다2.', status: 'active' },
-    { id: 3, text: '투두입니다3.', status: 'active' },
-  ];
-  const [todos, setTodos] = useState(todoList);
+export default function Todos({ filter }) {
+  const [todos, setTodos] = useState(() => fromLocalStorage());
+
+  //로컬스토리지 업데이트
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
   //새로운 투두 추가
   const handleAdd = (added) => setTodos([...todos, added]);
   //투두 삭제
@@ -25,11 +26,15 @@ export default function Todos() {
       todos.map((todo) => (todo.id === edited.id ? edited : todo))
     );
   };
+
+  //투두 필터
+  const filtered = getFilteredItems(todos, filter);
+
   return (
     <>
       <section className={styles.container}>
         <ul className={styles.list}>
-          {todos.map((todo) => (
+          {filtered.map((todo) => (
             <Todo
               key={todo.id}
               todo={todo}
@@ -43,4 +48,16 @@ export default function Todos() {
       <AddTodo onAdd={handleAdd} />
     </>
   );
+}
+
+function getFilteredItems(todos, filter) {
+  if (filter === 'all') {
+    return todos;
+  }
+  return todos.filter((todo) => todo.status === filter);
+}
+
+function fromLocalStorage() {
+  const todos = localStorage.getItem('todos');
+  return todos ? JSON.parse(todos) : [];
 }
