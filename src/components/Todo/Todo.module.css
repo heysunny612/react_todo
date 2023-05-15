@@ -10,23 +10,16 @@
   width: 1.5rem;
   height: 1.5rem;
 }
-.text {
+.text,
+.editInput {
+  display: flex;
   flex: 1 1 0%;
   margin-left: 0.5rem;
   font-size: 1.2rem;
 }
-.icon {
-  width: 26px;
-  height: 26px;
-  background-color: var(--color-grey);
-  border-radius: 100%;
-  transition: all 150ms ease-out;
-}
-.icon:hover {
-  background-color: var(--color-accent);
-  transform: rotate(15deg) scale(1.2);
-}
-.button {
-  color: var(--color-text);
-  background-color: transparent;
+.editInput {
+  border: 0 none;
+  outline: 0 none;
+  font-weight: bold;
+  color: var(--color-accent);
 }

@@ -1,27 +1,29 @@
+import React from 'react';
+import styles from './AddTodo.module.css';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import styles from './AddTodo.module.css';
 
 export default function AddTodo({ onAdd }) {
-  const [text, setText] = useState('');
-  const handleChange = (e) => setText(e.target.value);
+  const [newTodo, setNewToDo] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (text.trim() === '') return;
-    onAdd({ id: uuidv4(), text, status: 'status' });
-    setText('');
+    if (newTodo.trim() === '') return;
+    onAdd({ id: uuidv4(), text: newTodo, stauts: 'active' });
+    setNewToDo('');
   };
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input
         type='text'
-        placeholder='Add Todo'
-        value={text}
-        onChange={handleChange}
-        required
+        value={newTodo}
+        onChange={(e) => setNewToDo(e.target.value)}
         className={styles.input}
+        placeholder='Add Todo'
       />
-      <button className={styles.button}>ADD</button>
+      <button type='submit' className={styles.button}>
+        ADD
+      </button>
     </form>
   );
 }
