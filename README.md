@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# 리액트 프로젝트 투두리스트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![ZZ](https://github.com/heysunny612/react_todo/assets/127499117/6f8ad4d2-0a7a-4d1a-99c3-5272600678db)
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
+## 로컬스토리지를 이용한 투두 저장
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+ <br/>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```js
+ const [todos, setTodos] = useState(() => fromLocalStorage());
+ // todos를 가지고 있는 state의 초기 값을 로컬스토리지에 저장된 값으로 설정
 
-### `yarn test`
+  //로컬스토리지에 사용자가 입력한 투두 업데이트
+  //todos에 입력된게 없다면, 저장하지 않도록 useEffect 사용
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+function fromLocalStorage() {
+  const todos = localStorage.getItem('todos');
+  return todos ? JSON.parse(todos) : [];
+}
 
-### `yarn build`
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## context hook 이용한 Theme 적용
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
 
-### `yarn eject`
+ const ThemeContext = createContext();
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+export function ThemeProvider({ children }) {
+  const [darkMode, setDarkMode] = useState(false);
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    updateDarkMode(!darkMode);
+  };
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  //저장된 데이터는 마운트시 한번만 실행 될 수있도록 useEffect 사용
+  useEffect(() => {
+    const isDark = localStorage.theme === 'dark';
+    setDarkMode(isDark);
+    updateDarkMode(isDark);
+  }, []);
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  return (
+    //애플리케이션 전반적으로 사용할 수 있도록 context 사용
+    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+export const useDarkMode = () => useContext(ThemeContext);
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+//사용자가 theme 아이콘을 클릭시 로컬스토리지에 데이터 저장
+const updateDarkMode = (darkMode) => {
+  if (darkMode) {
+    document.documentElement.classList.add('dark');
+    localStorage.theme = 'dark';
+  } else {
+    document.documentElement.classList.remove('dark');
+    localStorage.theme = 'light';
+  }
+};
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br/>
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
