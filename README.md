@@ -25,6 +25,10 @@ function fromLocalStorage() {
 
 ```
 
+![ZZZZ](https://github.com/heysunny612/react_todo/assets/127499117/28a3acc5-dca8-43e2-b186-d40bbf6fc67d)
+
+
+
 ## context hook 이용한 Theme 적용
 
 <br/>
@@ -72,5 +76,12 @@ const updateDarkMode = (darkMode) => {
 
 <br/>
 
+| 제목 | 설명 |
+| --- | --- |
+| 구현 사항 | -CRUD <br/> -로컬스토리지 데이터저장 <br/> -라이트모드 다크모드 테마 적용<br/> -필터 메소드를 사용한 필터 구현 |
+| 라이브러리 | 투두의 고유한 아이디 값을 부여하기 위해 **UUID** 사용 |
+| css 및 반응형  | Post CSS 사용, 반응형 미구현 |
+| 배포 주소  | Netlify https://sunny-todos.netlify.app |
+| 소스 코드  | Github  https://github.com/heysunny612/react_todo |
 
 
