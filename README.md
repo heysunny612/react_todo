@@ -2,7 +2,7 @@
 
 ![ZZ](https://github.com/heysunny612/react_todo/assets/127499117/6f8ad4d2-0a7a-4d1a-99c3-5272600678db)
 
-
+<br/>
 
 ## 로컬스토리지를 이용한 투두 저장
 
@@ -27,7 +27,7 @@ function fromLocalStorage() {
 
 ![ZZZZ](https://github.com/heysunny612/react_todo/assets/127499117/28a3acc5-dca8-43e2-b186-d40bbf6fc67d)
 
-
+<br/>
 
 ## context hook 이용한 Theme 적용
 
