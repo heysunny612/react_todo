@@ -29,7 +29,7 @@ export default function Todos({ filter }) {
 
   //투두 필터
   const filtered = getFilteredItems(todos, filter);
-
+  console.log(filter);
   return (
     <>
       <section className={styles.container}>

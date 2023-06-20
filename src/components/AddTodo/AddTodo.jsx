@@ -9,7 +9,7 @@ export default function AddTodo({ onAdd }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newTodo.trim() === '') return;
-    onAdd({ id: uuidv4(), text: newTodo, stauts: 'active' });
+    onAdd({ id: uuidv4(), text: newTodo, status: 'active' });
     setNewToDo('');
   };
   return (
