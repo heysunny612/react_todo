@@ -1,6 +1,8 @@
 # 리액트 프로젝트 투두리스트
 
-![ZZ](https://github.com/heysunny612/react_todo/assets/127499117/6f8ad4d2-0a7a-4d1a-99c3-5272600678db)
+<p align="center">
+    <img src="https://github.com/heysunny612/react_todo/assets/127499117/6f8ad4d2-0a7a-4d1a-99c3-5272600678db" alt="ZZ">
+</p>
 
 <br/>
 
@@ -25,7 +27,9 @@ function fromLocalStorage() {
 
 ```
 
-![ZZZZ](https://github.com/heysunny612/react_todo/assets/127499117/28a3acc5-dca8-43e2-b186-d40bbf6fc67d)
+<p align="center">
+    <img src="https://github.com/heysunny612/react_todo/assets/127499117/28a3acc5-dca8-43e2-b186-d40bbf6fc67d" alt="ZZZZ">
+</p>
 
 <br/>
 
